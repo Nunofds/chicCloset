@@ -45,9 +45,7 @@ const userSchema = new Schema(
             enum: ["ADMIN", "USER", "GUEST"],
         },
     },
-    {
-        timestamps: true,
-    }
+    { timestamps: true }
 );
 
 const User = mongoose.model("User", userSchema);
