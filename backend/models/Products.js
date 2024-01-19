@@ -2,11 +2,16 @@ const mongoose = require("mongoose");
 
 const productSchema = new mongoose.Schema(
     {
+        salesId: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "Sales",
+            },
+        ],
         name: {
             type: String,
             required: true,
         },
-
         Images: {
             type: Array,
             required: true,
@@ -16,12 +21,13 @@ const productSchema = new mongoose.Schema(
             required: true,
         },
         price: {
-            type: Number,
-            required: true,
-        },
-        currency: {
-            type: String,
-            required: true,
+            value: { type: Number, required: true },
+            currency: {
+                type: [String],
+                requied: true,
+                default: "EUR",
+                enum: ["USD", "EUR", "GBP", "JPY"],
+            },
         },
         slug: {
             type: String,
@@ -35,18 +41,6 @@ const productSchema = new mongoose.Schema(
             type: Boolean,
             required: true,
         },
-        // categories: [
-        //     {
-        //         type: mongoose.Schema.Types.ObjectId,
-        //         ref: "Category",
-        //     },
-        // ],
-        sales: [
-            {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: "Sales",
-            },
-        ],
     },
     {
         timestamps: true,
