@@ -36,10 +36,24 @@ const productSchema = new mongoose.Schema(
         stock: {
             type: Number,
             required: true,
+            validate: {
+                validator: function (n) {
+                    return n >= 0;
+                },
+                message: "Le stock ne peut pas être négatif.",
+            },
         },
         isOnSales: {
             type: Boolean,
             required: true,
+        },
+        dateAdded: {
+            type: Date,
+            required: false,
+            default: Date.now,
+        },
+        dateModified: {
+            type: Date,
         },
     },
     {
