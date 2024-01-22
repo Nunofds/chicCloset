@@ -17,10 +17,18 @@ const getAllUsers = async (req, res) => {
  */
 const createUser = async (req, res) => {
     try {
-        if (!req.body.fname) {
+        if (
+            !req.body.fname &&
+            !req.body.lname &&
+            !req.body.email &&
+            !req.body.password
+        ) {
             return res
                 .status(400)
-                .json({ message: "Merci d'ajouter un prénom!" });
+                .json({
+                    message:
+                        "Les champs : prénom, nom, email et mot de passe son obligatoire!",
+                });
         }
 
         const newUser = new UserModel(req.body);
