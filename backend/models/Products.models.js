@@ -14,6 +14,7 @@ const productSchema = new mongoose.Schema(
         },
         Images: {
             type: Array,
+            // type: [String],
             required: true,
         },
         description: {
@@ -47,14 +48,18 @@ const productSchema = new mongoose.Schema(
             type: Boolean,
             required: true,
         },
-        dateAdded: {
-            type: Date,
-            required: false,
-            default: Date.now,
-        },
-        dateModified: {
-            type: Date,
-        },
+
+        /**
+         * On peut supprimer car il y a le timestamp qui ajoute la date et l'heure
+         */
+        // dateAdded: {
+        //     type: Date,
+        //     required: false,
+        //     default: Date.now,
+        // },
+        // dateModified: {
+        //     type: Date,
+        // },
     },
     {
         timestamps: true,
