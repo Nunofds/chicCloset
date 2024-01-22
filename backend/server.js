@@ -13,18 +13,20 @@ require("./config/dbConfig");
 
 const app = express();
 
-// middleware to traitement of request
+// middleware to treatment of request
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 // middleware for debug on dev mode
 app.use(morgan("dev"));
 
 /**
- * TEST ROUTE
+ * User routes
  */
-app.get("/", (req, res) => {
-    res.send("hello");
-});
+app.use("/user", require("./routes/user.routes"));
+
+// 👇 Start handling routes here
+const indexRoutes = require("./routes/index.routes");
+app.use("/api", indexRoutes);
 
 /**
  * Starting Express Server

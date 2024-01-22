@@ -4,6 +4,7 @@ const salesSchema = new Schema(
     {
         salesCode: {
             type: String,
+            // type: [String],
             required: true,
         },
         discount: {
@@ -16,6 +17,12 @@ const salesSchema = new Schema(
             type: String,
             required: true,
         },
+        /** startDate: {
+                type: Date,
+                required: true,
+                default: Date.now
+            },
+         */
         endDate: {
             type: String,
             required: true,
@@ -25,6 +32,12 @@ const salesSchema = new Schema(
             },
             message: "La date de fin doit être supérieure à la date de début",
         },
+        /** endDate: {
+                type: Date,
+                required: true,
+                default: Date.now
+            },
+         */
     },
     // Voir si add pre-save hook pour mettre à jour le stock. Ask Nuno.
 

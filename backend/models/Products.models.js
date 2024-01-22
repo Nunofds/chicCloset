@@ -14,6 +14,7 @@ const productSchema = new mongoose.Schema(
         },
         Images: {
             type: Array,
+            // type: [String],
             required: true,
         },
         description: {
@@ -65,6 +66,7 @@ const productSchema = new mongoose.Schema(
             type: Boolean,
             required: true,
         },
+        // Pas la même chose que timestamps
         dateAdded: {
             type: Date,
             required: false,

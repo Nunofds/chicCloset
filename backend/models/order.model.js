@@ -34,6 +34,22 @@ const orderSchema = new Schema(
                 total: { type: Number, required: true, default: null },
             },
         ],
+        deliveryAddress: {
+            country: { type: String, required: true, default: null },
+            street1: { type: String, required: true, default: null },
+            street2: { type: String, default: null },
+            city: { type: String, required: true, default: null },
+            state: { type: String, required: true, default: null },
+            zipCode: { type: String, required: true, default: null },
+        },
+        invoiceAddress: {
+            country: { type: String, default: deliveryAddress.country },
+            street1: { type: String, default: deliveryAddress.street1 },
+            street2: { type: String, default: deliveryAddress.street2 },
+            city: { type: String, default: deliveryAddress.city },
+            state: { type: String, default: deliveryAddress.state },
+            zipCode: { type: String, default: deliveryAddress.zipCode },
+        },
     },
     {
         timestamps: true,
