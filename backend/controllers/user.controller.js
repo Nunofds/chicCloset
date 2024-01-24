@@ -1,7 +1,7 @@
 const bcrypt = require("bcrypt");
-const UserModel = require("../models/user.model");
+const { v4: uuidv4 } = require("uuid");
 
-const saltRounds = 10;
+const UserModel = require("../models/user.model");
 
 /**
  * GET all users controller
@@ -54,14 +54,18 @@ const createUser = async (req, res) => {
 
     try {
         const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
-        const newUser = new UserModel({
+        let newUser = new UserModel({
+            id: uuidv4(),
             fname: req.body.fname,
             lname: req.body.lname,
             email: req.body.email,
             password: hashedPassword,
         });
-        const savedUser = await newUser.save();
-        res.status(200).json(savedUser);
+        let savedUser = await newUser.save();
+        res.status(200).json({
+            message: "Utilisateur ajouté avec succès",
+            user: savedUser,
+        });
     } catch (error) {
         res.status(400).json({
             message: error.message,
@@ -74,22 +78,24 @@ const createUser = async (req, res) => {
  */
 const updateUser = async (req, res) => {
     const userId = req.params.id;
-    const { newFname, newLname, newEmail, newPassword } = req.body;
+    let { fname, lname, email, password } = req.body;
 
     try {
-        const userToUpdate = {
-            fname: newFname,
-            lname: newLname,
-            email: newEmail,
-        };
-
-        if (newPassword) {
-            userToUpdate.password = await bcrypt.hash(newPassword, saltRounds);
+        // get fields
+        let updateFields = {};
+        if (fname) updateFields.fname = fname;
+        if (lname) updateFields.lname = lname;
+        if (email) updateFields.email = email;
+        if (password) {
+            const saltRounds = 10;
+            const hashedPassword = await bcrypt.hash(password, saltRounds);
+            updateFields.password = hashedPassword;
         }
 
-        const updatedUser = await UserModel.findByIdAndUpdate(
+        // Update user
+        let updatedUser = await UserModel.findByIdAndUpdate(
             userId,
-            userToUpdate,
+            updateFields,
             { new: true }
         );
 
@@ -104,7 +110,7 @@ const updateUser = async (req, res) => {
     } catch (error) {
         return res.status(500).json({
             message: "Erreur lors de la mise à jour de l'utilisateur",
-            error,
+            error: error.message,
         });
     }
 };
