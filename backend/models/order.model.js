@@ -8,7 +8,6 @@ const orderSchema = new Schema(
     {
         userId: {
             type: Schema.Types.ObjectId,
-            ref: "User",
             required: true,
         }, // (clé étrangère vers la table Utilisateurs)
         products: [
@@ -49,9 +48,9 @@ const orderSchema = new Schema(
             zipCode: { type: String, default: null },
         },
         status: {
-            type: [String],
+            type: String,
             enum: ["en_attente", "en_cours", "expediee", "livree"],
-            default: ["en_attente"],
+            default: "en_attente",
         },
     },
     {

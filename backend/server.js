@@ -15,13 +15,14 @@ const app = express();
 
 // middleware to treatment of request
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+// app.use(express.urlencoded({ extended: false }));
 // middleware for debug on dev mode
 app.use(morgan("dev"));
 
 /**
  * User routes
  */
+app.use("/user/auth", require("./routes/auth.routes"));
 app.use("/user", require("./routes/user.routes"));
 app.use("/orders", require("./routes/order.routes"));
 app.use("/comment", require("./routes/comment.routes"));

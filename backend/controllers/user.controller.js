@@ -1,15 +1,15 @@
-const bcrypt = require("bcrypt");
-const saltRounds = 10;
-const { v4: uuidv4 } = require("uuid");
-
 const UserModel = require("../models/user.model");
 
 /**
  * GET all users controller
  */
 const getAllUsers = async (req, res) => {
+    const query = req.query.new;
     try {
-        const users = await UserModel.find();
+        const users = query
+            ? await UserModel.find().sort({ _id: -1 }).limit(5)
+            : await UserModel.find();
+
         res.status(200).json(users);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -24,8 +24,9 @@ const getUserById = async (req, res) => {
 
     try {
         const user = await UserModel.findById(userId);
+        const { password, ...others } = user._doc;
         if (user) {
-            res.status(200).json(user);
+            res.status(200).json(others);
         } else {
             res.status(404).json({ message: "Utilisateur non trouvé !" });
         }
@@ -33,43 +34,6 @@ const getUserById = async (req, res) => {
         res.status(500).json({
             message:
                 "Une erreur s'est produite lors de la récupération de l'utilisateur",
-        });
-    }
-};
-
-/**
- * ADD user controller
- */
-const createUser = async (req, res) => {
-    if (
-        !req.body.fname &&
-        !req.body.lname &&
-        !req.body.email &&
-        !req.body.password
-    ) {
-        return res.status(400).json({
-            message:
-                "Les champs : prénom, nom, email et mot de passe son obligatoires !",
-        });
-    }
-
-    try {
-        const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
-        let newUser = new UserModel({
-            id: uuidv4(),
-            fname: req.body.fname,
-            lname: req.body.lname,
-            email: req.body.email,
-            password: hashedPassword,
-        });
-        let savedUser = await newUser.save();
-        res.status(200).json({
-            message: "Utilisateur ajouté avec succès",
-            user: savedUser,
-        });
-    } catch (error) {
-        res.status(400).json({
-            message: error.message,
         });
     }
 };
@@ -142,7 +106,6 @@ const deleteUserById = async (req, res) => {
 module.exports = {
     getAllUsers,
     getUserById,
-    createUser,
     updateUser,
     deleteUserById,
 };

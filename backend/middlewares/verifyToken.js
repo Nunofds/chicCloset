@@ -15,7 +15,6 @@ const verifyToken = (req, res, next) => {
     } else {
         return res.status(401).json({
             message: "Vous n'êtes pas authentifié.",
-            error: error.message,
         });
     }
 };
