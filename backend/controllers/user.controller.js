@@ -1,4 +1,5 @@
 const UserModel = require("../models/user.model");
+const CryptoJS = require("crypto-js");
 
 /**
  * GET all users controller
@@ -42,27 +43,22 @@ const getUserById = async (req, res) => {
  * Update User controller
  */
 const updateUser = async (req, res) => {
-    const userId = req.params.id;
-    let { fname, lname, email, password } = req.body;
+    if (req.body.password) {
+        req.body.password = CryptoJS.AES.encrypt(
+            req.body.password,
+            process.env.PASS_SEC
+        ).toString();
+    }
 
     try {
-        // get fields
-        let updateFields = {};
-        if (fname) updateFields.fname = fname;
-        if (lname) updateFields.lname = lname;
-        if (email) updateFields.email = email;
-        if (password) {
-            const saltRounds = 10;
-            const hashedPassword = await bcrypt.hash(password, saltRounds);
-            updateFields.password = hashedPassword;
-        }
-
-        // Update user
-        let updatedUser = await UserModel.findByIdAndUpdate(
-            userId,
-            updateFields,
+        const updatedUser = await UserModel.findByIdAndUpdate(
+            req.params.id,
+            {
+                $set: req.body,
+            },
             { new: true }
         );
+        // res.status(200).json(updatedUser);
 
         if (!updatedUser) {
             return res.status(404).json({ message: "Utilisateur non trouvé." });

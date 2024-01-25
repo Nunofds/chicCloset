@@ -62,8 +62,19 @@ const addOrder = async (req, res) => {
 };
 
 /**
+ *
+ */
+const updateOrder = async (req, res) => {};
+
+/**
  * Delete order
  */
 const deleteOrder = async (req, res) => {};
 
-module.exports = { getAllOrders, getOrderById, addOrder, deleteOrder };
+module.exports = {
+    getAllOrders,
+    getOrderById,
+    addOrder,
+    updateOrder,
+    deleteOrder,
+};

@@ -4,6 +4,7 @@ const {
     getAllOrders,
     getOrderById,
     addOrder,
+    updateOrder,
     deleteOrder,
 } = require("../controllers/order.controller");
 
@@ -12,7 +13,9 @@ router.get("/all", getAllOrders);
 // Get order by ID
 router.get("/:id", getOrderById);
 // add an order on BDD
-router.post("/user/addorder/", addOrder);
+router.post("/add", addOrder);
+// update an order on BDD
+router.put("/update/:id", updateOrder);
 // delete order
 router.delete("/delete/:id", deleteOrder);
 
