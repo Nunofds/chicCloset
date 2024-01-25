@@ -1,4 +1,5 @@
 const bcrypt = require("bcrypt");
+const saltRounds = 10;
 const { v4: uuidv4 } = require("uuid");
 
 const UserModel = require("../models/user.model");
@@ -26,7 +27,7 @@ const getUserById = async (req, res) => {
         if (user) {
             res.status(200).json(user);
         } else {
-            res.status(404).json({ message: "Utilisateur non trouvé" });
+            res.status(404).json({ message: "Utilisateur non trouvé !" });
         }
     } catch (error) {
         res.status(500).json({

@@ -23,6 +23,8 @@ app.use(morgan("dev"));
  * User routes
  */
 app.use("/user", require("./routes/user.routes"));
+app.use("/orders", require("./routes/order.routes"));
+app.use("/comment", require("./routes/comment.routes"));
 
 /**
  * Starting Express Server
