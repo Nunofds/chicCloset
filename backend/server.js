@@ -24,9 +24,14 @@ app.use(morgan("dev"));
  */
 app.use("/user", require("./routes/user.routes"));
 
-// 👇 Start handling routes here
-const indexRoutes = require("./routes/index.routes");
-app.use("/api", indexRoutes);
+// Ajout de la route pour les produits dans le fichier server.js. Toutes les routes pour vérification commencent par /products.
+app.use("/products", require("./routes/products.routes"));
+
+// Route pour les ventes
+app.use("/sale", require("./routes/sales.routes"));
+
+// Route pour les catégories
+app.use("/categories", require("./routes/categories.routes"));
 
 /**
  * Starting Express Server

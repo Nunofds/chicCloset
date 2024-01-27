@@ -36,9 +36,7 @@ db.on("disconnected", function () {
 process.on("SIGINT", function () {
     db.close(function () {
         console.log("====================================");
-        console.log(
-            "Connexion à la base de données terminée via application terminée"
-        );
+        console.log("Connexion à la base de données terminée via application terminée");
         console.log("====================================");
 
         process.exit(0);
