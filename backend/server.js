@@ -27,6 +27,10 @@ app.use("/user", require("./routes/user.routes"));
 app.use("/user/orders", require("./routes/order.routes"));
 app.use("/comments", require("./routes/comment.routes"));
 
+// 👇 Start handling routes here
+const indexRoutes = require("./routes/index.routes");
+app.use("/api", indexRoutes);
+
 /**
  * Starting Express Server
  */
