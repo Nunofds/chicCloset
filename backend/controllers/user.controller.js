@@ -81,7 +81,6 @@ const updateUser = async (req, res) => {
  */
 const deleteUserById = async (req, res) => {
     const userId = req.params.id;
-
     try {
         const user = await UserModel.findByIdAndDelete(userId);
         if (user) {
@@ -89,12 +88,12 @@ const deleteUserById = async (req, res) => {
                 message: "Utilisateur supprimé avec succès",
             });
         } else {
-            res.status(404).json({ message: "Utilisateur non trouvé" });
+            res.status(404).json({ message: "Utilisateur non trouvé!" });
         }
     } catch (error) {
         res.status(500).json({
             message:
-                "Une erreur s'est produite lors de la suppression de l'utilisateur",
+                "Une erreur s'est produite lors de la suppression de l'utilisateur.",
         });
     }
 };

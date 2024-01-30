@@ -14,7 +14,7 @@ const getAllOrders = async (req, res) => {
 };
 
 /**
- * Get by id
+ * Get order by id
  */
 const getOrderById = async (req, res) => {
     const orderId = req.params.id;
@@ -62,7 +62,7 @@ const addOrder = async (req, res) => {
 };
 
 /**
- *
+ * Update order
  */
 const updateOrder = async (req, res) => {};
 
