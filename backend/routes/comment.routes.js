@@ -12,11 +12,11 @@ const {
 } = require("../middlewares/verifyToken");
 
 //add comment
-router.post("/add", verifyTokenAndAuthorization, addComment);
+router.post("/add/:id", verifyTokenAndAuthorization, addComment);
 // Get all comments
 router.get("/", verifyTokenAndAdmin, getComments);
 // Get comment by ID
-router.get("/:id", verifyTokenAndAdmin, getCommentById);
+router.get("/:id", verifyTokenAndAuthorization, getCommentById);
 // delete comment
 router.delete("/delete/:id", verifyTokenAndAdmin, deleteComment);
 

@@ -4,7 +4,24 @@ const mongoose = require("mongoose");
 /**
  * Add Comment
  */
-const addComment = async (req, res) => {};
+const addComment = async (req, res) => {
+    const { userId, productId, comment, note } = req.body;
+    try {
+        const newComment = new CommentModel({
+            userId: userId,
+            productId: productId,
+            comment: comment,
+            note: note,
+        });
+
+        const savedComment = await newComment.save();
+        res.status(201).json(savedComment);
+    } catch (error) {
+        res.status(500).json({
+            error: error.message,
+        });
+    }
+};
 
 /**
  * Get all comments

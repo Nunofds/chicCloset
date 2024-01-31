@@ -9,7 +9,7 @@ const orderSchema = new Schema(
         userId: {
             type: Schema.Types.ObjectId,
             required: true,
-        }, // (clé étrangère vers la table Utilisateurs)
+        },
         products: [
             {
                 productId: {
