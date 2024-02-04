@@ -11,7 +11,7 @@ const SearchDeleteConditionNavbar = ({ input, clearInput }) => {
                 />
             ) : (
                 <X
-                    className="bg-gray-100 p-2 w-10 h-10 rounded-l-none rounded-r-full w-[25]"
+                    className="bg-gray-100 p-2 w-10 h-10 rounded-l-none rounded-r-full"
                     onClick={clearInput}
                 />
             )}
