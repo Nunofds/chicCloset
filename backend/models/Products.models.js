@@ -76,7 +76,7 @@ const productSchema = new mongoose.Schema(
             type: Date,
         },
         // Catégorie du produit : Si les produits appartiennent à des catégories.
-        category: {
+        categoryId: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "Category",
             required: true,
