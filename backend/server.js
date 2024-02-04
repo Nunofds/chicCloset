@@ -16,7 +16,7 @@ const app = express();
 
 // middleware to treatment of request
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+// app.use(express.urlencoded({ extended: false }));
 // middleware for debug on dev mode
 app.use(morgan("dev"));
 
@@ -29,7 +29,10 @@ app.use(
 /**
  * User routes
  */
+app.use("/user/auth", require("./routes/auth.routes"));
 app.use("/user", require("./routes/user.routes"));
+app.use("/user/orders", require("./routes/order.routes"));
+app.use("/comments", require("./routes/comment.routes"));
 
 // Ajout de la route pour les produits dans le fichier server.js. Toutes les routes pour vérification commencent par /products.
 app.use("/products", require("./routes/products.routes"));
