@@ -1,6 +1,7 @@
 const express = require("express");
 const morgan = require("morgan");
 const dotenv = require("dotenv");
+const cors = require("cors");
 
 dotenv.config();
 
@@ -15,14 +16,23 @@ const app = express();
 
 // middleware to treatment of request
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+// app.use(express.urlencoded({ extended: false }));
 // middleware for debug on dev mode
 app.use(morgan("dev"));
 
+// Utilisez le middleware cors pour autoriser une origine spécifique (dans cet exemple, http://localhost:3000)
+app.use(
+    cors({
+        origin: "http://localhost:3000",
+    })
+);
 /**
  * User routes
  */
+app.use("/user/auth", require("./routes/auth.routes"));
 app.use("/user", require("./routes/user.routes"));
+app.use("/user/orders", require("./routes/order.routes"));
+app.use("/comments", require("./routes/comment.routes"));
 
 // Ajout de la route pour les produits dans le fichier server.js. Toutes les routes pour vérification commencent par /products.
 app.use("/products", require("./routes/products.routes"));
@@ -40,4 +50,9 @@ app.listen(PORT, () => {
     console.log("====================================");
     console.log(`Serveur Express en cours d'exécution sur le port ${PORT}`);
     console.log("====================================");
+});
+
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send("Erreur serveur!");
 });

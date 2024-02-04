@@ -1,28 +1,24 @@
 const express = require("express");
-const { getAllUsers, createUser } = require("../controllers/user.controller");
+const {
+    getAllUsers,
+    updateUser,
+    getUserById,
+    deleteUserById,
+} = require("../controllers/user.controller");
+const {
+    verifyTokenAndAuthorization,
+    verifyTokenAndAdmin,
+} = require("../middlewares/verifyToken");
+
 const router = express.Router();
 
 // Get All Users
-router.get("/all", getAllUsers);
-
+router.get("/all", verifyTokenAndAdmin, getAllUsers);
 // Get User by ID
-router.get("/:id", (req, res) => {
-    id = req.params.id;
-    res.json({ message: `Voici l'user ${id}` });
-});
-
-// Add User
-router.post("/add", createUser);
-
+router.get("/find/:id", verifyTokenAndAdmin, getUserById);
 // Update User
-router.put("/update/:id", (req, res) => {
-    id = req.params.id;
-    res.json({ message: `voici l'utilisateur mis à jour : ${id}` });
-});
-
+router.put("/update/:id", verifyTokenAndAuthorization, updateUser);
 // Delete User
-router.delete("/delete/:id", (req, res) => {
-    res.json({ message: `utilisateur supprimé : ${req.params.id}` });
-});
+router.delete("/delete/:id", verifyTokenAndAuthorization, deleteUserById);
 
 module.exports = router;
