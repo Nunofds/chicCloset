@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 /**
@@ -6,14 +6,11 @@ const Schema = mongoose.Schema;
  */
 const orderSchema = new Schema(
     {
-        userId: { type: Schema.Types.ObjectId, ref: "User", required: true }, // (clé étrangère vers la table Utilisateurs)
-        status: {
-            type: String,
-            enum: ["en_attente", "en_cours", "expediee", "livree"],
+        userId: {
+            type: Schema.Types.ObjectId,
             required: true,
-            default: ["en_attente"],
         },
-        shoppingCart: [
+        products: [
             {
                 productId: {
                     type: Schema.Types.ObjectId,
@@ -22,7 +19,6 @@ const orderSchema = new Schema(
                 },
                 quantity: {
                     type: Number,
-                    required: true,
                     default: 0,
                     validate: {
                         validator: function (n) {
@@ -31,9 +27,31 @@ const orderSchema = new Schema(
                         message: "La quantité ne peut pas être négative.",
                     },
                 },
-                total: { type: Number, required: true, default: null },
             },
         ],
+        ammount: { type: Number, required: true },
+
+        deliveryAddress: {
+            country: { type: String, required: true, default: null },
+            street1: { type: String, required: true, default: null },
+            street2: { type: String, default: null },
+            city: { type: String, required: true, default: null },
+            state: { type: String, required: true, default: null },
+            zipCode: { type: String, required: true, default: null },
+        },
+        invoiceAddress: {
+            country: { type: String, default: null },
+            street1: { type: String, default: null },
+            street2: { type: String, default: null },
+            city: { type: String, default: null },
+            state: { type: String, default: null },
+            zipCode: { type: String, default: null },
+        },
+        status: {
+            type: String,
+            enum: ["en_attente", "en_cours", "expediee", "livree"],
+            default: "en_attente",
+        },
     },
     {
         timestamps: true,
@@ -42,4 +60,4 @@ const orderSchema = new Schema(
 
 const Order = mongoose.model("Order", orderSchema);
 
-export default { Order };
+module.exports = Order;

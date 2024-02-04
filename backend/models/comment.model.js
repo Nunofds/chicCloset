@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 /**
@@ -7,9 +7,8 @@ const Schema = mongoose.Schema;
 const commentSchema = new Schema(
     {
         userId: { type: Schema.Types.ObjectId, ref: "User", required: true },
-        poductId: {
+        productId: {
             type: Schema.Types.ObjectId,
-            ref: "Product",
             required: true,
         },
         comment: { type: String, required: true, default: null },
@@ -20,4 +19,4 @@ const commentSchema = new Schema(
 
 const Comment = mongoose.model("Comment", commentSchema);
 
-export default { Comment };
+module.exports = Comment;
