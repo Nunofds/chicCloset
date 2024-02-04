@@ -12,7 +12,9 @@ function NavBar() {
         <div>
             <div className="flex justify-between items-center p-4 w-full bg-royal-blue text-black">
                 <div>
-                    <h3 className="mr-4">Free Retrun Worldwide within 20 days</h3>
+                    <h3 className="mr-4">
+                        Free Retrun Worldwide within 20 days
+                    </h3>
                 </div>
                 <div className="flex space-x-4">
                     <Link href="/">Home</Link>
@@ -30,7 +32,9 @@ function NavBar() {
                     <div className="searchBar-navbar">
                         {/* <SearchBar /> */}
                         <SearchBar setResults={setResults} />
-                        {results && results.length > 0 && <SearchProductList results={results} />}
+                        {results && results.length > 0 && (
+                            <SearchProductList results={results} />
+                        )}
                     </div>
 
                     <div className="flex space-x-4">
