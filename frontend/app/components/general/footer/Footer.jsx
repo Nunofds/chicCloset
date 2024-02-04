@@ -6,11 +6,15 @@ const Footer = () => {
             <div className="container mx-auto">
                 <div className="flex justify-between items-center">
                     <div>
-                        <h2 className="text-xl font-bold mb-2">Notre Entreprise</h2>
+                        <h2 className="text-xl font-bold mb-2">
+                            Notre Entrepgitrise
+                        </h2>
                         <p>Informations sur votre entreprise.</p>
                     </div>
                     <div>
-                        <h2 className="text-xl font-bold mb-2">Liens Rapides</h2>
+                        <h2 className="text-xl font-bold mb-2">
+                            Liens Rapides
+                        </h2>
                         <ul>
                             <li>
                                 <a href="/">Accueil</a>
@@ -24,7 +28,9 @@ const Footer = () => {
                         </ul>
                     </div>
                     <div>
-                        <h2 className="text-xl font-bold mb-2">Contactez-nous</h2>
+                        <h2 className="text-xl font-bold mb-2">
+                            Contactez-nous
+                        </h2>
                         <p>Adresse, numéro de téléphone, email, etc.</p>
                     </div>
                 </div>
