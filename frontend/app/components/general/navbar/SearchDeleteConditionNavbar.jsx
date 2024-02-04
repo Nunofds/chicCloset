@@ -6,7 +6,7 @@ const SearchDeleteConditionNavbar = ({ input, clearInput }) => {
         <div className="searchIcon">
             {input.length === 0 ? (
                 <Search
-                    className="bg-gray-100 p-2 w-10 h-10 w-[25] rounded-l-none rounded-r-full"
+                    className="bg-gray-100 p-2 w-10 h-10 rounded-l-none rounded-r-full"
                     // onClick={handleFilter}
                 />
             ) : (
