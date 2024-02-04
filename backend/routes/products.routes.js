@@ -95,7 +95,7 @@ router.post("/newproduct", async (req, res, next) => {
             variants,
             brand,
             isOnSales,
-            category: category,
+            categoryId: category,
         });
 
         res.json(newProduct);
