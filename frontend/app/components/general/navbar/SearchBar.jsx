@@ -2,15 +2,17 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Search, User, ShoppingCart, Heart, X } from "react-feather";
-import SearchDeleteConditionNavbar from "./SearchDeleteConditionNavbar";
+// import SearchDeleteConditionNavbar from "./SearchDeleteConditionNavbar";
 // import SearchProductList from "./SearchProductList";
 
 const SearchBar = ({ setResults }) => {
     //code from video searchbar
     const [input, setInput] = useState("");
 
+    const [selectedCategory, setSelectedCategory] = useState("");
+
     // state utilisé pour la condition d'affichage du X
-    const [wordEntered, setWordEntered] = useState("");
+    // const [wordEntered, setWordEntered] = useState("");
 
     const apiUrl = "http://localhost:5000/products/";
 
@@ -26,18 +28,22 @@ const SearchBar = ({ setResults }) => {
                 console.log("Results from SearchBar:", results);
             })
             .catch((error) => console.error(error));
-    }, [input]);
+    }, [input, setSelectedCategory]);
 
     const handleChange = (value) => {
         setInput(value);
         console.log(value);
     };
 
+    const handleCategoryChange = (value) => {
+        setSelectedCategory(value);
+        console.log(value);
+    };
+
     // Fonction pour effacer le champ de recherche
     const clearInput = () => {
         setInput("");
-
-        setWordEntered("");
+        // setWordEntered("");
     };
 
     return (
@@ -46,35 +52,26 @@ const SearchBar = ({ setResults }) => {
                 <input
                     type="search"
                     name="search"
-                    id="serch"
+                    id="search"
                     className="shadow-slate-500 w-[25rem] h-10 p-2 outline-none bg-gray-100 rounded-l-full rounded-r-none"
                     placeholder="Search for products"
                     onChange={(e) => handleChange(e.target.value)}
                     value={input}
+                    autoComplete="off"
                 ></input>
 
-                <select name="" id="" className="text-black h-10 bg-gray-100 w-[10rem]">
+                <select
+                    name="category"
+                    id="category"
+                    className="text-black h-10 bg-gray-100 w-[10rem]"
+                    onChange={(e) => handleCategoryChange(e.target.value)}
+                >
                     <option value="">All Categories</option>
                     <option value="">Shoes</option>
                     <option value="">Womenwear</option>
                     <option value="">Menswear</option>
                 </select>
-                {/* {filteredData.length === 0 && (
-                    <div className="searchIcon">
-                        {wordEntered !== "" ? (
-                            <X
-                                className="bg-gray-100 p-2 w-10 h-10 rounded-l-none rounded-r-full w-[25]"
-                                onClick={clearInput}
-                            />
-                        ) : (
-                            <Search
-                                className="bg-gray-100 p-2 w-10 h-10 w-[25] rounded-l-none rounded-r-full"
-                                onClick={handleFilter}
-                            />
-                        )}
-                    </div>
-                )} */}
-                <SearchDeleteConditionNavbar input={input} />
+                {/* <SearchDeleteConditionNavbar input={input} /> */}
             </div>
         </div>
     );
