@@ -5,10 +5,10 @@ function SearchResult({ product }) {
     console.log("Product in SearchResult:", product);
     return (
         <div>
-            {product ? (
+            {product && product._id ? (
                 <div>
                     {/* ici creer route pour afficher les produits rechercher dans la navbar */}
-                    <Link href={`/product/${product.id}`}>
+                    <Link href={`/products/${product._id}`}>
                         <div className="hover:bg-gray-100">{product.name}</div>
                     </Link>
                 </div>

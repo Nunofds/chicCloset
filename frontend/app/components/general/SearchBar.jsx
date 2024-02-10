@@ -9,9 +9,6 @@ const SearchBar = ({ setResults }) => {
     //code from video searchbar
     const [input, setInput] = useState("");
 
-    // state utilisé pour la condition d'affichage du X
-    // const [wordEntered, setWordEntered] = useState("");
-
     const apiUrl = "http://localhost:5000/products/";
 
     useEffect(() => {
@@ -22,6 +19,7 @@ const SearchBar = ({ setResults }) => {
                     return input && product && product.name.toLowerCase().includes(input);
                 });
 
+                // Mise à jour de l'état global des resultats "setResults" pour les utiliser dans le composant parent "navbar" (voir NavBar.jsx)
                 setResults(results);
                 console.log("Results from SearchBar:", results);
             })
@@ -33,12 +31,12 @@ const SearchBar = ({ setResults }) => {
         console.log(value);
     };
 
-    // Fonction pour effacer le champ de recherche
-    const clearInput = () => {
-        setInput("");
+    // // Fonction pour effacer le champ de recherche
+    // const clearInput = () => {
+    //     setInput("");
 
-        setWordEntered("");
-    };
+    //     setWordEntered("");
+    // };
 
     return (
         <div className="flex">
@@ -59,21 +57,6 @@ const SearchBar = ({ setResults }) => {
                     <option value="">Womenwear</option>
                     <option value="">Menswear</option>
                 </select>
-                {/* {filteredData.length === 0 && (
-                    <div className="searchIcon">
-                        {wordEntered !== "" ? (
-                            <X
-                                className="bg-gray-100 p-2 w-10 h-10 rounded-l-none rounded-r-full w-[25]"
-                                onClick={clearInput}
-                            />
-                        ) : (
-                            <Search
-                                className="bg-gray-100 p-2 w-10 h-10 w-[25] rounded-l-none rounded-r-full"
-                                onClick={handleFilter}
-                            />
-                        )}
-                    </div>
-                )} */}
                 <SearchDeleteConditionNavbar input={input} />
             </div>
         </div>
