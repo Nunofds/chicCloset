@@ -8,7 +8,7 @@ function SearchResult({ product }) {
             {product && product._id ? (
                 <div>
                     {/* ici creer route pour afficher les produits rechercher dans la navbar */}
-                    <Link href={`/products/${product._id}`}>
+                    <Link href={`/Pages/products/${product._id}`}>
                         <div className="hover:bg-gray-100">{product.name}</div>
                     </Link>
                 </div>
