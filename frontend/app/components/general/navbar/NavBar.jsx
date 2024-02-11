@@ -8,6 +8,7 @@ import { User, ShoppingCart, Heart } from "react-feather";
 
 function NavBar() {
     const [results, setResults] = useState([]);
+
     return (
         <div>
             <div className="flex justify-between items-center p-4 w-full bg-royal-blue text-black">

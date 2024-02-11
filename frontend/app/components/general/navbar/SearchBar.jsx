@@ -2,8 +2,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Search, User, ShoppingCart, Heart, X } from "react-feather";
-// import SearchDeleteConditionNavbar from "./SearchDeleteConditionNavbar";
-// import SearchProductList from "./SearchProductList";
+import AllCategories from "./../../Categories/AllCategories";
 
 const SearchBar = ({ setResults }) => {
     //code from video searchbar
@@ -60,17 +59,7 @@ const SearchBar = ({ setResults }) => {
                     autoComplete="off"
                 ></input>
 
-                <select
-                    name="category"
-                    id="category"
-                    className="text-black h-10 bg-gray-100 w-[10rem]"
-                    onChange={(e) => handleCategoryChange(e.target.value)}
-                >
-                    <option value="">All Categories</option>
-                    <option value="">Shoes</option>
-                    <option value="">Womenwear</option>
-                    <option value="">Menswear</option>
-                </select>
+                <AllCategories setSelectedCategory={setSelectedCategory} />
                 {/* <SearchDeleteConditionNavbar input={input} /> */}
             </div>
         </div>
