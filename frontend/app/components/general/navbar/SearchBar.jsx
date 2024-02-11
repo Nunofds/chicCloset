@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Search, User, ShoppingCart, Heart, X } from "react-feather";
 import SearchDeleteConditionNavbar from "./SearchDeleteConditionNavbar";
+import AllCategories from "../../allCategories/AllCategories";
 // import SearchProductList from "./SearchProductList";
 
 const SearchBar = ({ setResults }) => {
@@ -53,12 +54,13 @@ const SearchBar = ({ setResults }) => {
                     value={input}
                 ></input>
 
-                <select name="" id="" className="text-black h-10 bg-gray-100 w-[10rem]">
+                {/* <select name="" id="" className="text-black h-10 bg-gray-100 w-[10rem]">
                     <option value="">All Categories</option>
                     <option value="">Shoes</option>
                     <option value="">Womenwear</option>
                     <option value="">Menswear</option>
-                </select>
+                </select> */}
+                <AllCategories />
                 {/* {filteredData.length === 0 && (
                     <div className="searchIcon">
                         {wordEntered !== "" ? (
@@ -74,7 +76,7 @@ const SearchBar = ({ setResults }) => {
                         )}
                     </div>
                 )} */}
-                <SearchDeleteConditionNavbar input={input} />
+                {/* <SearchDeleteConditionNavbar input={input} /> */}
             </div>
         </div>
     );
