@@ -2,14 +2,14 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Search, User, ShoppingCart, Heart, X } from "react-feather";
-import SearchDeleteConditionNavbar from "./SearchDeleteConditionNavbar";
-import AllCategories from "./Categories/AllCategories";
 // import SearchProductList from "./SearchProductList";
 
 const SearchBar = ({ setResults }) => {
     //code from video searchbar
     const [input, setInput] = useState("");
-    const [categories, setCategories] = useState("");
+
+    // state utilisé pour la condition d'affichage du X
+    const [wordEntered, setWordEntered] = useState("");
 
     const apiUrl = "http://localhost:5000/products/";
 
@@ -21,7 +21,6 @@ const SearchBar = ({ setResults }) => {
                     return input && product && product.name.toLowerCase().includes(input);
                 });
 
-                // Mise à jour de l'état global des resultats "setResults" pour les utiliser dans le composant parent "navbar" (voir NavBar.jsx)
                 setResults(results);
                 console.log("Results from SearchBar:", results);
             })
@@ -33,12 +32,12 @@ const SearchBar = ({ setResults }) => {
         console.log(value);
     };
 
-    // // Fonction pour effacer le champ de recherche
-    // const clearInput = () => {
-    //     setInput("");
+    // Fonction pour effacer le champ de recherche
+    const clearInput = () => {
+        setInput("");
 
-    //     setWordEntered("");
-    // };
+        setWordEntered("");
+    };
 
     return (
         <div className="flex">
@@ -53,8 +52,14 @@ const SearchBar = ({ setResults }) => {
                     value={input}
                 ></input>
 
-                <AllCategories />
-                <SearchDeleteConditionNavbar input={input} />
+                {/* <select name="" id="" className="text-black h-10 bg-gray-100 w-[10rem]">
+                    <option value="">All Categories</option>
+                    <option value="">Shoes</option>
+                    <option value="">Womenwear</option>
+                    <option value="">Menswear</option>
+                </select> */}
+
+                {/* <SearchDeleteConditionNavbar input={input} /> */}
             </div>
         </div>
     );

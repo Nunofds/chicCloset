@@ -1,5 +1,5 @@
 import React from "react";
-import ProductDetails from "./ProductDetails";
+import OneProductDetail from "../../components/OneProductDetail";
 import { useRouter } from "next/router";
 
 const ProductPage = () => {
@@ -9,7 +9,7 @@ const ProductPage = () => {
     return (
         <div>
             <h1>Product Page</h1>
-            {id && <ProductDetails productId={id} />}
+            {id && <OneProductDetail productId={id} />}
         </div>
     );
 };
