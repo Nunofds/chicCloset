@@ -39,12 +39,6 @@ const SearchBar = ({ setResults }) => {
         console.log(value);
     };
 
-    // Fonction pour effacer le champ de recherche
-    const clearInput = () => {
-        setInput("");
-        // setWordEntered("");
-    };
-
     return (
         <div className="flex">
             <div className="items-center flex gap-1">
@@ -59,8 +53,9 @@ const SearchBar = ({ setResults }) => {
                     autoComplete="off"
                 ></input>
 
-                <AllCategories setSelectedCategory={setSelectedCategory} />
-                {/* <SearchDeleteConditionNavbar input={input} /> */}
+                {/* <AllCategories setSelectedCategory={setSelectedCategory} />
+                 */}
+                <AllCategories onCategorySelect={handleCategoryChange} />
             </div>
         </div>
     );

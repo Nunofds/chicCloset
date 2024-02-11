@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
-const AllCategories = () => {
+const AllCategories = ({ onCategorySelect }) => {
     const [selectedCategory, setSelectedCategory] = useState([]);
 
     const apiUrl = "http://localhost:5000/categories";
@@ -16,9 +16,19 @@ const AllCategories = () => {
             .catch((error) => console.error(error));
     }, []);
 
+    const handleCategoryChange = (value) => {
+        setSelectedCategory(value);
+        console.log(value);
+    };
+
     return (
         <div>
-            <select name="" id="" className="text-black h-10 bg-gray-100 w-[10rem]">
+            <select
+                name=""
+                id=""
+                className="text-black h-10 bg-gray-100 w-[10rem]"
+                onChange={(e) => onCategorySelect(e.target.value)}
+            >
                 <option value="">All Categories</option>
                 {selectedCategory.map((category) => (
                     <option key={category.name} value={category.name}>
