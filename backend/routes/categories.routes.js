@@ -5,10 +5,11 @@ const category = require("./../models/Categories.models");
 // Récuperer toutes les catégories
 router.get("/", async (req, res, next) => {
     try {
-        const AllCategories = await category.find();
-        res.json(AllCategories);
-    } catch (err) {
-        next(err);
+        const allCategories = await category.find();
+        res.json(allCategories);
+    } catch (error) {
+        console.error("Error fetching categories:", error);
+        res.status(500).json({ error: "Internal Server Error" });
     }
 });
 
