@@ -20,7 +20,7 @@ function NavBar() {
                     <Link href="/">Home</Link>
                     <Link href={"/about"}>About</Link>
                     <Link href="/account/dashboard">My Account</Link>
-                    <Link href="/account/wishlist">WishList</Link>
+                    <Link href="/cart/wishlist">WishList</Link>
                     <Link href="/auth/login">Log In</Link>
                 </div>
             </div>
@@ -41,7 +41,7 @@ function NavBar() {
                         <Link href="/account/dashboard">
                             <User />
                         </Link>
-                        <Link href="/account/wishlist">
+                        <Link href="/cart/wishlist">
                             <Heart />
                         </Link>
                         <Link href="/cart">
