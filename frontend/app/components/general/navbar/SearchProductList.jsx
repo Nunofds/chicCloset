@@ -6,7 +6,8 @@ const ProductList = ({ results }) => {
     return (
         <div className="h-[40] w-[100] ">
             {results.map((result) => {
-                return <SearchResult product={result} key={result._id} />;
+                console.log("Object properties:", result);
+                return <SearchResult product={result} key={result.id || result._id} />;
             })}
         </div>
     );
