@@ -43,6 +43,9 @@ app.use("/sale", require("./routes/sales.routes"));
 // Route pour les catégories
 app.use("/categories", require("./routes/categories.routes"));
 
+// Route pour les images du caroussel
+app.use("/caroussel", require("./routes/caroussel.routes"));
+
 /**
  * Starting Express Server
  */
