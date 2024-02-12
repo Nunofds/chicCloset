@@ -10,9 +10,6 @@ const SearchBar = ({ setResults }) => {
 
     const [selectedCategory, setSelectedCategory] = useState("");
 
-    // state utilisé pour la condition d'affichage du X
-    // const [wordEntered, setWordEntered] = useState("");
-
     const apiUrl = "http://localhost:5000/products/";
 
     useEffect(() => {

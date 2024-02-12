@@ -1,7 +1,8 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import Link from "next/link";
 
-const AllCategories = ({ onCategorySelect }) => {
+const AllCategories = ({}) => {
     const [selectedCategory, setSelectedCategory] = useState([]);
 
     const apiUrl = "http://localhost:5000/categories";
@@ -14,6 +15,7 @@ const AllCategories = ({ onCategorySelect }) => {
                 console.log("Results from Category:", response.data);
             })
             .catch((error) => console.error(error));
+        console.log(selectedCategory);
     }, []);
 
     const handleCategoryChange = (value) => {
@@ -23,17 +25,16 @@ const AllCategories = ({ onCategorySelect }) => {
 
     return (
         <div>
-            <select
-                name=""
-                id=""
-                className="text-black h-10 bg-gray-100 w-[10rem]"
-                onChange={(e) => onCategorySelect(e.target.value)}
-            >
+            <select name="" id="" className="text-black h-10 bg-gray-100 w-[10rem]">
                 <option value="">All Categories</option>
                 {selectedCategory.map((category) => (
                     <option key={category.name} value={category.name}>
-                        {" "}
-                        {category.name}
+                        <Link
+                            href="/productByCategory/[category]"
+                            as={`/productByCategory/${encodeURIComponent(category.name)}`}
+                        >
+                            {category.name}
+                        </Link>
                     </option>
                 ))}
             </select>
