@@ -16,7 +16,14 @@ router.get("/", async (req, res, next) => {
 // Récupérer un produit en spécifiant le ID du produit dans l'URL.
 router.get("/:id", async (req, res, next) => {
     try {
+        if (!req.params.id) {
+            return res
+                .status(400)
+                .json({ message: "Identifiant du produit manquant" });
+        }
+
         const productById = await product.findById(req.params.id);
+
         if (!productById) {
             return res.status(404).json({ message: "Produit non trouvé" });
         }
@@ -30,7 +37,11 @@ router.get("/:id", async (req, res, next) => {
 // Modifier un produit en spécifiant le ID du produit dans l'URL.
 router.put("/:id", async (req, res, next) => {
     try {
-        const productById = await product.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        const productById = await product.findByIdAndUpdate(
+            req.params.id,
+            req.body,
+            { new: true }
+        );
         res.json(productById);
     } catch (error) {
         next(error);
@@ -84,7 +95,17 @@ router.put("/:id", async (req, res, next) => {
 
 router.post("/newproduct", async (req, res, next) => {
     try {
-        const { name, description, price, slug, stock, variants, brand, isOnSales, category } = req.body;
+        const {
+            name,
+            description,
+            price,
+            slug,
+            stock,
+            variants,
+            brand,
+            isOnSales,
+            category,
+        } = req.body;
 
         const newProduct = await product.create({
             name,
