@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Search, User, ShoppingCart, Heart, X } from "react-feather";
 import AllCategories from "./../../Categories/AllCategories";
+import SearchDeleteConditionNavbar from "./SearchDeleteConditionNavbar";
 
 const SearchBar = ({ setResults }) => {
     //code from video searchbar
@@ -57,7 +58,6 @@ const SearchBar = ({ setResults }) => {
                     autoComplete="off"
                 ></input>
 
-<<<<<<<< HEAD:frontend/app/components/general/SearchBar.jsx
                 <select
                     name=""
                     id=""
@@ -70,11 +70,9 @@ const SearchBar = ({ setResults }) => {
                 </select>
 
                 <SearchDeleteConditionNavbar input={input} />
-========
                 {/* <AllCategories setSelectedCategory={setSelectedCategory} />
                  */}
                 <AllCategories onCategorySelect={handleCategoryChange} />
->>>>>>>> origin/frontend:frontend/app/components/general/navbar/SearchBar.jsx
             </div>
         </div>
     );

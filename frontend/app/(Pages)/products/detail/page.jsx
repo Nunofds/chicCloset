@@ -1,3 +1,4 @@
+"use client";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -5,11 +6,14 @@ const ProductDetails = (props) => {
     const [product, setProduct] = useState(null);
 
     const productId = props.productId;
+    console.log("props from detail", props);
 
     useEffect(() => {
         const fetchProductDetails = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/products/${productId}`);
+                const response = await axios.get(
+                    `http://localhost:5000/products/${productId}`
+                );
                 setProduct(response.data);
             } catch (error) {
                 console.error("Error fetching product details:", error);

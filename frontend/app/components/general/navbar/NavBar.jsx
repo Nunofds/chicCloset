@@ -12,14 +12,16 @@ function NavBar() {
         <div>
             <div className="flex justify-between items-center p-4 w-full bg-royal-blue text-black">
                 <div>
-                    <h3 className="mr-4">Free Retrun Worldwide within 20 days</h3>
+                    <h3 className="mr-4">
+                        Free Retrun Worldwide within 20 days
+                    </h3>
                 </div>
                 <div className="flex space-x-4">
                     <Link href="/">Home</Link>
-                    <Link href={"/Pages/about"}>About</Link>
-                    <Link href="/myaccount">My Account</Link>
-                    <Link href="/wishlist">WishList</Link>
-                    <Link href="/login">Log In</Link>
+                    <Link href={"/about"}>About</Link>
+                    <Link href="/account/dashboard">My Account</Link>
+                    <Link href="/account/wishlist">WishList</Link>
+                    <Link href="/auth/login">Log In</Link>
                 </div>
             </div>
             <div className="">
@@ -30,14 +32,16 @@ function NavBar() {
                     <div className="searchBar-navbar">
                         {/* <SearchBar /> */}
                         <SearchBar setResults={setResults} />
-                        {results && results.length > 0 && <SearchProductList results={results} />}
+                        {results && results.length > 0 && (
+                            <SearchProductList results={results} />
+                        )}
                     </div>
 
                     <div className="flex space-x-4">
-                        <Link href="/myaccount">
+                        <Link href="/account/dashboard">
                             <User />
                         </Link>
-                        <Link href="/wishlist">
+                        <Link href="/account/wishlist">
                             <Heart />
                         </Link>
                         <Link href="/cart">
