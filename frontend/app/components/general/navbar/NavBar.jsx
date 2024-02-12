@@ -19,9 +19,9 @@ function NavBar() {
                 <div className="flex space-x-4">
                     <Link href="/">Home</Link>
                     <Link href={"/Pages/about"}>About</Link>
-                    <Link href="/myaccount">My Account</Link>
-                    <Link href="/wishlist">WishList</Link>
-                    <Link href="/login">Log In</Link>
+                    <Link href={"/Pages/user/dashboard/"}>My Account</Link>
+                    <Link href={"/Pages/user/dashboard/cart"}>WishList</Link>
+                    <Link href={"/Pages/user/auth/login"}>Log In</Link>
                 </div>
             </div>
             <div className="">

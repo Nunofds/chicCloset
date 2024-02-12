@@ -19,7 +19,11 @@ const SearchBar = ({ setResults }) => {
             .get(`${apiUrl}?q=${input}`)
             .then((response) => {
                 const results = response.data.filter((product) => {
-                    return input && product && product.name.toLowerCase().includes(input);
+                    return (
+                        input &&
+                        product &&
+                        product.name.toLowerCase().includes(input)
+                    );
                 });
 
                 setResults(results);
@@ -53,27 +57,17 @@ const SearchBar = ({ setResults }) => {
                     value={input}
                 ></input>
 
-                <select name="" id="" className="text-black h-10 bg-gray-100 w-[10rem]">
+                <select
+                    name=""
+                    id=""
+                    className="text-black h-10 bg-gray-100 w-[10rem]"
+                >
                     <option value="">All Categories</option>
                     <option value="">Shoes</option>
                     <option value="">Womenwear</option>
                     <option value="">Menswear</option>
                 </select>
-                {/* {filteredData.length === 0 && (
-                    <div className="searchIcon">
-                        {wordEntered !== "" ? (
-                            <X
-                                className="bg-gray-100 p-2 w-10 h-10 rounded-l-none rounded-r-full w-[25]"
-                                onClick={clearInput}
-                            />
-                        ) : (
-                            <Search
-                                className="bg-gray-100 p-2 w-10 h-10 w-[25] rounded-l-none rounded-r-full"
-                                onClick={handleFilter}
-                            />
-                        )}
-                    </div>
-                )} */}
+
                 <SearchDeleteConditionNavbar input={input} />
             </div>
         </div>

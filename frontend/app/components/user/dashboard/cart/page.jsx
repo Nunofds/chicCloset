@@ -1,7 +1,7 @@
 import React from "react";
 
-const config = () => {
+const Page = () => {
     return <div></div>;
 };
 
-export default config;
+export default Page;
