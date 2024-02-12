@@ -4,11 +4,11 @@ import Link from "next/link";
 
 function SearchResult({ product }) {
     console.log("Product in SearchResult:", product);
-    console.log("Product in SearchResult:", product.id);
+    console.log("Product in SearchResult:", product && product.id);
 
     useEffect(() => {
         console.log("Product in SearchResult useEffect:", product);
-        console.log("Product in SearchResult:", product.id);
+        console.log("Product in SearchResult:", product && product.id);
     }, [product]);
 
     return (

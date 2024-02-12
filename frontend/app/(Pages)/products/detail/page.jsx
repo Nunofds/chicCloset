@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-const ProductDetails = (props) => {
+const ProductDetails = () => {
     const [product, setProduct] = useState(null);
 
     const productId = props.productId;
@@ -11,9 +11,8 @@ const ProductDetails = (props) => {
     useEffect(() => {
         const fetchProductDetails = async () => {
             try {
-                const response = await axios.get(
-                    `http://localhost:5000/products/${productId}`
-                );
+                const response = await axios.get(`http://localhost:5000/products/${productId}`);
+                console.log("product details response: ", response.data);
                 setProduct(response.data);
             } catch (error) {
                 console.error("Error fetching product details:", error);
@@ -25,7 +24,7 @@ const ProductDetails = (props) => {
     }, [productId]);
 
     if (!product) {
-        return <p>Loading...</p>; // Vous pouvez également afficher un message d'erreur si le produit n'est pas trouvé.
+        return <p>Loading...</p>; // également afficher un message d'erreur si le produit n'est pas trouvé.
     }
 
     return (
@@ -35,7 +34,6 @@ const ProductDetails = (props) => {
             <p>
                 Price: {product.price.value} {product.price.currency[0]}
             </p>
-            {/* Ajoutez d'autres détails du produit selon vos besoins */}
         </div>
     );
 };

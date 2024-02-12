@@ -18,11 +18,7 @@ const SearchBar = ({ setResults }) => {
             .get(`${apiUrl}?q=${input}`)
             .then((response) => {
                 const results = response.data.filter((product) => {
-                    return (
-                        input &&
-                        product &&
-                        product.name.toLowerCase().includes(input)
-                    );
+                    return input && product && product.name.toLowerCase().includes(input);
                 });
 
                 setResults(results);
@@ -55,20 +51,6 @@ const SearchBar = ({ setResults }) => {
                     autoComplete="off"
                 ></input>
 
-                <select
-                    name=""
-                    id=""
-                    className="text-black h-10 bg-gray-100 w-[10rem]"
-                >
-                    <option value="">All Categories</option>
-                    <option value="">Shoes</option>
-                    <option value="">Womenwear</option>
-                    <option value="">Menswear</option>
-                </select>
-
-                <SearchDeleteConditionNavbar input={input} />
-                {/* <AllCategories setSelectedCategory={setSelectedCategory} />
-                 */}
                 <AllCategories onCategorySelect={handleCategoryChange} />
             </div>
         </div>

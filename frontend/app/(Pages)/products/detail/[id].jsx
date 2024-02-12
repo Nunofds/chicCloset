@@ -1,6 +1,6 @@
 import React from "react";
-import OneProductDetail from "../../components/OneProductDetail";
 import { useRouter } from "next/router";
+import ProductDetails from "./page";
 
 const ProductPage = () => {
     const router = useRouter();
@@ -11,7 +11,7 @@ const ProductPage = () => {
     return (
         <div>
             <h1>Product Page</h1>
-            {id && <OneProductDetail productId={id} />}
+            if (id) {<ProductDetails productId={id}></ProductDetails>}
         </div>
     );
 };
