@@ -6,6 +6,8 @@ const ProductPage = () => {
     const router = useRouter();
     const { id } = router.query;
 
+    console.log("id : ", id);
+
     return (
         <div>
             <h1>Product Page</h1>

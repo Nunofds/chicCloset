@@ -1,3 +1,4 @@
+"use client";
 import React, { useEffect } from "react";
 import Link from "next/link";
 
@@ -15,7 +16,7 @@ function SearchResult({ product }) {
             {product ? (
                 <div>
                     {/* ici creer route pour afficher les produits rechercher dans la navbar */}
-                    <Link href={`/product/${product.id}`}>
+                    <Link href={`/products/detail/${product.id}`}>
                         <div className="hover:bg-gray-100">{product.name}</div>
                     </Link>
                 </div>
