@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import React, { useState } from "react";
+import { useState } from "react";
 import isValidEmail from "./validator";
 import { useRouter } from "next/navigation";
 
@@ -19,14 +19,16 @@ export default function Register() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const [username, email, password] = e.target;
+        const username = e.target[0].value;
+        const email = e.target[1].value;
+        const password = e.target[2].value;
 
         if (!username || username === "") {
             setError("This username is invalid");
             return;
         }
 
-        if (!isValidEmail(email.value)) {
+        if (!isValidEmail(email)) {
             setError("This email is invalid");
             return;
         }
@@ -42,13 +44,19 @@ export default function Register() {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ username, email, password }),
+                body: JSON.stringify({
+                    username,
+                    email,
+                    password,
+                }),
             });
 
-            res.status === 400 &&
+            if (res.status === 400 || res.status === 500) {
                 setError("This username or email is already registered");
+                return;
+            }
 
-            if (res.status === 200) {
+            if (res.status === 200 || res.status === 201) {
                 setError("");
                 router.push("/auth/login");
             }
@@ -68,6 +76,14 @@ export default function Register() {
                     onSubmit={handleSubmit}
                     className="flex flex-col justify-center items-center"
                 >
+                    <input
+                        type="text"
+                        name="username"
+                        id="username"
+                        required
+                        className="w-full border my-3 p-2"
+                        placeholder="votre.username"
+                    />
                     <input
                         type="email"
                         name="email"
@@ -91,6 +107,10 @@ export default function Register() {
                     >
                         SIGN UP
                     </button>
+
+                    <p className="text-red-600 text-[.7rem] mt-2">
+                        {error && error}
+                    </p>
                 </form>
 
                 <div className="text-center mt-6">
