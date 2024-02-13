@@ -128,10 +128,10 @@ export default function Register() {
                         Terms & Conditions
                     </Link>{" "}
                     and{" "}
-                    <Link href={""} className="underline hover:italic">
+                    <Link href={""} className="underline">
                         Privacy Policy
                     </Link>
-                    . By clicking SIGN UP below to create your Blurb Account,
+                    . By clicking SIGN UP below to create your Account,
                     you are agreeing to the Terms & Conditions and acknowledging
                     that you have read and understood our Privacy Policy.
                 </div>
