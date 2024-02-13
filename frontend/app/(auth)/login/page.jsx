@@ -51,12 +51,12 @@ export default function Login() {
     // }
 
     return (
-        <div className="h-full mt-20 my-32 flex justify-center items-center text-center">
+        <div className="h-full mt-20 my-32 flex justify-center items-left">
             <div>
                 <h2 className="my-6 text-2xl font-semibold">Login</h2>
 
                 <form
-                    className="flex flex-col justify-center items-center"
+                    className="flex flex-col justify-center border p-6 items-start"
                     onSubmit={handleSubmit}
                 >
                     <input
@@ -76,34 +76,33 @@ export default function Login() {
                         placeholder="votre.password"
                     />
 
-                    <button className="border p-1 w-full bg-[#236964] text-white">
-                        SIGN IN
+                    <button className="border p-1 mt-3 w-full bg-[#236964] text-white">
+                        Sign in
                     </button>
 
-                    <p className="text-red-600 text-[.7rem] mt-2">
-                        {error && error}
-                    </p>
+                    {error && (
+                        <p className="w-full text-red-600 text-[.7rem] text-center mt-2 py-3 bg-red-200">
+                            {error}
+                        </p>
+                    )}
                 </form>
 
                 <div className="text-center mt-6">
-                    <p>
+                    <p className="text-[.8rem]">
                         You don't have an account ?{" "}
-                        <Link
-                            href={"/auth/register"}
-                            className="underline italic"
-                        >
-                            Register
+                        <Link href={"/register"} className="underline italic">
+                            Sign up
                         </Link>
                     </p>
                 </div>
 
                 <div className="w-[22rem] text-[.6rem] text-start my-3 pt-3">
                     Please review the{" "}
-                    <Link href={""} className="underline">
+                    <Link href={"/legal/conditionsTerms"} className="underline">
                         Terms & Conditions
                     </Link>{" "}
                     and{" "}
-                    <Link href={""} className="underline hover:italic">
+                    <Link href={"/legal/privacyTerms"} className="underline">
                         Privacy Policy
                     </Link>
                     . By clicking SIGN UP below to create your Account, you are

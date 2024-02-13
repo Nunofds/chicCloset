@@ -8,47 +8,49 @@ export default function Register() {
     const router = useRouter();
     // -----states-----
     const [error, setError] = useState("");
+    const [info, setInfo] = useState({ username: "", email: "", password: "" });
+    const [pending, setPending] = useState(false);
     // -----end states-----
 
     // -----Variables-----
-    const apiUrl = "http://localhost:5000/user/auth/register";
-
+    const api = "http://localhost:5000/user/auth/register";
     // -----End Variables-----
 
     // -----Events-----
+    const handleInput = (e) => {
+        setInfo((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const username = e.target[0].value;
-        const email = e.target[1].value;
-        const password = e.target[2].value;
+        if (!info.username || !info.email || !info.password) {
+            setError("Must provide all the credentials.");
+        }
 
-        if (!username || username === "") {
+        if (!info.username || info.username === "") {
             setError("This username is invalid");
             return;
         }
 
-        if (!isValidEmail(email)) {
+        if (!isValidEmail(info.email)) {
             setError("This email is invalid");
             return;
         }
 
-        if (!password || password.length < 8) {
+        if (!info.password || info.password.length < 8) {
             setError("This password is invalid");
             return;
         }
 
         try {
-            const res = await fetch(apiUrl, {
+            setPending(true);
+            const res = await fetch(api, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({
-                    username,
-                    email,
-                    password,
-                }),
+                body: JSON.stringify(info),
             });
 
             if (res.status === 400 || res.status === 500) {
@@ -56,25 +58,35 @@ export default function Register() {
                 return;
             }
 
-            if (res.status === 200 || res.status === 201) {
+            if (res.ok) {
+                setPending(false);
                 setError("");
-                router.push("/auth/login");
+                const form = e.target;
+                form.reset();
+                console.log("User registered.");
+                // router.push("/auth/login");
+            } else {
+                const errorData = await res.json();
+                setError(errorData.message);
+                console.error(errorData.message);
+                setPending(false);
             }
         } catch (error) {
-            setError("Error, Try again.");
+            setPending(false);
+            setError("Something went wrong.");
             console.log(error);
         }
     };
     // -----End Events-----
 
     return (
-        <div className="h-full mt-20 my-32 flex justify-center items-center text-center">
+        <div className="h-full mt-20 my-32 flex justify-center items-center text-left">
             <div>
                 <h2 className="my-6 text-2xl font-semibold">Create account</h2>
 
                 <form
                     onSubmit={handleSubmit}
-                    className="flex flex-col justify-center items-center"
+                    className="flex flex-col justify-start items-left border p-6"
                 >
                     <input
                         type="text"
@@ -83,6 +95,9 @@ export default function Register() {
                         required
                         className="w-full border my-3 p-2"
                         placeholder="votre.username"
+                        onChange={(e) => {
+                            handleInput(e);
+                        }}
                     />
                     <input
                         type="email"
@@ -91,49 +106,59 @@ export default function Register() {
                         required
                         className="w-full border my-3 p-2"
                         placeholder="votre.email@gmail.com"
+                        onChange={(e) => {
+                            handleInput(e);
+                        }}
                     />
+
                     <input
                         type="password"
                         name="password"
                         id="password"
                         required
-                        className="w-full border my-3 p-2"
+                        className="w-full border mt-3 p-2"
                         placeholder="votre.password"
+                        onChange={(e) => {
+                            handleInput(e);
+                        }}
                     />
+                    <p className="text-[.6rem] ps-2">8 characters minimum</p>
 
                     <button
                         type="submit"
-                        className="border p-1 w-full bg-[#236964] text-white"
+                        className="border p-1 mt-3 w-full bg-[#236964] text-white"
                     >
-                        SIGN UP
+                        Sign up
                     </button>
 
-                    <p className="text-red-600 text-[.7rem] mt-2">
-                        {error && error}
-                    </p>
+                    {error && (
+                        <p className="w-full text-red-600 text-[.7rem] text-center mt-2 py-3 bg-red-200">
+                            {error}
+                        </p>
+                    )}
                 </form>
 
                 <div className="text-center mt-6">
-                    <p>
+                    <p className="text-[.8rem]">
                         Already have an account ?{" "}
-                        <Link href={"/auth/login"} className="underline italic">
-                            Login
+                        <Link href={"/login"} className="underline italic">
+                            Sign in
                         </Link>
                     </p>
                 </div>
 
                 <div className="w-[22rem] text-[.6rem] text-start my-3 pt-3">
                     Please review the{" "}
-                    <Link href={""} className="underline">
+                    <Link href={"/legal/conditionsTerms"} className="underline">
                         Terms & Conditions
                     </Link>{" "}
                     and{" "}
-                    <Link href={""} className="underline">
+                    <Link href={"/legal/privacyTerms"} className="underline">
                         Privacy Policy
                     </Link>
-                    . By clicking SIGN UP below to create your Account,
-                    you are agreeing to the Terms & Conditions and acknowledging
-                    that you have read and understood our Privacy Policy.
+                    . By clicking SIGN UP below to create your Account, you are
+                    agreeing to the Terms & Conditions and acknowledging that
+                    you have read and understood our Privacy Policy.
                 </div>
             </div>
         </div>
