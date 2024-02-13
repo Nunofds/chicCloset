@@ -3,6 +3,9 @@ import "./globals.css";
 import NavBar from "./components/general/navbar/NavBar";
 import Footer from "./components/general/footer/Footer";
 
+import { getServerSession } from "next-auth";
+import SessionProvider from "../app/utils/SessionProvider";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -10,13 +13,16 @@ export const metadata = {
     description: "",
 };
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+    const session = await getServerSession();
     return (
         <html lang="fr">
             <body className={inter.className}>
-                <NavBar />
-                {children}
-                <Footer />
+                <SessionProvider session={session}>
+                    <NavBar />
+                    {children}
+                    <Footer />
+                </SessionProvider>
             </body>
         </html>
     );
