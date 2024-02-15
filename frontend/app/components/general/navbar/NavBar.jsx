@@ -21,7 +21,7 @@ function NavBar() {
                     <Link href={"/about"}>About</Link>
                     <Link href="/account/dashboard">My Account</Link>
                     <Link href="/cart/wishlist">WishList</Link>
-                    <Link href="/auth/login">Log In</Link>
+                    <Link href="/login">Log In</Link>
                 </div>
             </div>
             <div className="">

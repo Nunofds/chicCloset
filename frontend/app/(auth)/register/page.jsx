@@ -4,6 +4,10 @@ import { useState } from "react";
 import isValidEmail from "./validator";
 import { useRouter } from "next/navigation";
 
+/**
+ * Register a new user on BDD and returns a JSX Element to show form
+ * @returns JSX Element
+ */
 export default function Register() {
     const router = useRouter();
     // -----states-----
@@ -63,6 +67,7 @@ export default function Register() {
                 setError("");
                 const form = e.target;
                 form.reset();
+                router.push("/login");
                 console.log("User registered.");
                 // router.push("/auth/login");
             } else {
@@ -124,25 +129,27 @@ export default function Register() {
                     />
                     <p className="text-[.6rem] ps-2">8 characters minimum</p>
 
-                    <button
-                        type="submit"
-                        className="border p-1 mt-3 w-full bg-[#236964] text-white"
-                    >
-                        Sign up
-                    </button>
-
+                    {/* -----error message----- */}
                     {error && (
                         <p className="w-full text-red-600 text-[.7rem] text-center mt-2 py-3 bg-red-200">
                             {error}
                         </p>
                     )}
+                    {/* -----END error message----- */}
+
+                    <button
+                        className="border p-1 mt-3 w-full bg-[#236964] text-white"
+                        disabled={pending ? true : false}
+                    >
+                        {pending ? "Registering..." : "Register"}
+                    </button>
                 </form>
 
                 <div className="text-center mt-6">
                     <p className="text-[.8rem]">
                         Already have an account ?{" "}
                         <Link href={"/login"} className="underline italic">
-                            Sign in
+                            Login
                         </Link>
                     </p>
                 </div>

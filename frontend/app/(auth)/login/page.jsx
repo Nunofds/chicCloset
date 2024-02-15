@@ -1,54 +1,72 @@
 "use client";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import isValidEmail from "../register/validator";
-import { signIn, useSession } from "next-auth/react";
+import { signIn } from "next-auth/react";
 
 export default function Login() {
     const router = useRouter();
+    // -----states-----
     const [error, setError] = useState("");
-    // const { data: session, status: sessionStatus } = useSession();
+    const [info, setInfo] = useState({
+        email: "",
+        password: "",
+    });
+    const [pending, setPending] = useState(false);
+    // -----end states-----
 
-    // useEffect(() => {
-    //     if (sessionStatus === "authenticated") {
-    //         router.replace("/api/dashboard");
-    //     }
-    // }, [sessionStatus, router]);
+    // -----Variables-----
+    const api = "http://localhost:5000/user/auth/login";
+    // -----End Variables-----
 
+    // -----Events-----
+
+    const handleInput = (e) => {
+        setInfo((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    };
+
+    // event declanched when the User submit the form to register
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const email = e.target[0].value;
-        const password = e.target[1].value;
+        if (!info.email || !info.password) {
+            setError("Must provide all the credentials.");
+        }
 
-        if (!isValidEmail(email)) {
+        if (!isValidEmail(info.email)) {
             setError("Email is invalid");
             return;
         }
 
-        if (!password || password.length < 8) {
-            setError("Password is invalid");
-            return;
-        }
+        try {
+            setPending(true);
+            const res = await signIn("credentials", {
+                email: info.email,
+                password: info.password,
+                redirect: false,
+            });
+            console.log("-------------------");
+            console.log("-------------------");
+            console.log("--- res page.js = ", res);
+            console.log("-------------------");
+            console.log("-------------------");
 
-        const res = await signIn("credentials", {
-            email,
-            password,
-            redirect: false,
-        });
+            if (res.error) {
+                setError("Invalid credentials.");
+                setPending(false);
+                return;
+            }
 
-        if (res?.error) {
-            setError("Invalid email or password");
-            if (res?.url) router.replace("/api/dashboard");
-        } else {
-            setError("");
+            // if success we redirect the user to your dashboard
+            router.replace("/user/dashboard");
+        } catch (error) {
+            setPending(false);
+            setError("Something went wrong.");
+            console.error(error);
         }
     };
-
-    // if (sessionStatus === "loading") {
-    //     return <h1>Loading...</h1>;
-    // }
+    // -----End Events-----
 
     return (
         <div className="h-full mt-20 my-32 flex justify-center items-left">
@@ -66,6 +84,9 @@ export default function Login() {
                         required
                         className="w-full border my-3 p-2"
                         placeholder="votre.email@gmail.com"
+                        onChange={(e) => {
+                            handleInput(e);
+                        }}
                     />
                     <input
                         type="password"
@@ -74,24 +95,32 @@ export default function Login() {
                         required
                         className="w-full border my-3 p-2"
                         placeholder="votre.password"
+                        onChange={(e) => {
+                            handleInput(e);
+                        }}
                     />
 
-                    <button className="border p-1 mt-3 w-full bg-[#236964] text-white">
-                        Sign in
-                    </button>
-
+                    {/* -----error message----- */}
                     {error && (
                         <p className="w-full text-red-600 text-[.7rem] text-center mt-2 py-3 bg-red-200">
                             {error}
                         </p>
                     )}
+                    {/* -----END error message----- */}
+
+                    <button
+                        className="border p-1 mt-3 w-full bg-[#236964] text-white"
+                        disabled={pending ? true : false}
+                    >
+                        {pending ? "Login in..." : "Login"}
+                    </button>
                 </form>
 
                 <div className="text-center mt-6">
                     <p className="text-[.8rem]">
                         You don't have an account ?{" "}
                         <Link href={"/register"} className="underline italic">
-                            Sign up
+                            Register
                         </Link>
                     </p>
                 </div>
