@@ -4,8 +4,12 @@ import Link from "next/link";
 import SearchBar from "./SearchBar";
 import SearchProductList from "./SearchProductList";
 import { User, ShoppingCart, Heart } from "react-feather";
+import { signOut, useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 function NavBar() {
+    const router = useRouter();
+    const { data: session } = useSession();
     const [results, setResults] = useState([]);
 
     return (
@@ -19,9 +23,33 @@ function NavBar() {
                 <div className="flex space-x-4">
                     <Link href="/">Home</Link>
                     <Link href={"/about"}>About</Link>
-                    <Link href="/account/dashboard">My Account</Link>
-                    <Link href="/cart/wishlist">WishList</Link>
-                    <Link href="/login">Log In</Link>
+
+                    {!session ? (
+                        <>
+                            <Link href="/login">Log In</Link>
+                        </>
+                    ) : (
+                        <>
+                            <Link href="/user/dashboard">Dashboard</Link>
+                            <Link href="/user/cart/wishlist">WishList</Link>
+                            <div>
+                                <span className="mx-3 italic">
+                                    {session.user.email}
+                                </span>
+                                <button
+                                    onClick={() => {
+                                        signOut();
+                                        router.replace("/");
+                                        console.log("--------");
+                                        console.log("user deconnected");
+                                        console.log("--------");
+                                    }}
+                                >
+                                    logOut
+                                </button>
+                            </div>
+                        </>
+                    )}
                 </div>
             </div>
             <div className="">

@@ -1,8 +1,6 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { compare } from "bcryptjs";
-import { mongodbConnect } from "../../../utils/mongodb";
-import { log } from "console";
 
 const handler = NextAuth({
     session: {
@@ -29,43 +27,29 @@ const handler = NextAuth({
                     }
                 );
 
-                const user = await response.json();
+                try {
+                    const user = await response.json();
 
-                console.log("**************");
-                console.log("**************");
-                console.log(user);
-                console.log("**************");
-                console.log("**************");
+                    if (response.status == 200) {
+                        // Compare the provided password with the hashed password from the database
+                        const passwordCorrect = await compare(
+                            credentials.password,
+                            user.password
+                        );
 
-                if (response.status == 200) {
-                    console.log("**************");
-                    console.log(" email correct? =", user.email);
-                    console.log(" user psw correct? =", user.password);
-                    console.log("**************");
-
-                    console.log("**************");
-                    console.log(
-                        " credentials.password ? =",
-                        credentials.password
-                    );
-                    console.log("**************");
-
-                    // Compare the provided password with the hashed password from the database
-                    const passwordCorrect = await compare(
-                        credentials.password,
-                        user.password
-                    );
-
-                    if (!passwordCorrect) {
-                        return Promise.resolve({
-                            id: user.id,
-                            email: user.email,
-                        });
+                        if (!passwordCorrect) {
+                            return Promise.resolve({
+                                id: user.id,
+                                email: user.email,
+                            });
+                        } else {
+                            return Promise.resolve(null);
+                        }
                     } else {
                         return Promise.resolve(null);
                     }
-                } else {
-                    return Promise.resolve(null);
+                } catch (error) {
+                    throw new Error(error);
                 }
             },
         }),
